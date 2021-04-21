@@ -9,8 +9,8 @@
   "author": "SathvikHegde",
   "license": "ISC",
   "dependencies": {
-    "cleverbot-free": "^1.0.5",
-    "discord.js": "^12.5.1",
+    "cleverbot-free": "^1.1.2",
+    "discord.js": "^12.5.3",
     "dotenv": "^8.2.0"
   }
 }
