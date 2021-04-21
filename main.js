@@ -9,19 +9,9 @@ client.once('ready', () => {
 client.on('message', message =>{
     if(message.author.bot) return;
 
-    if(!message.channel.id == '834374327620468746') return;
+    if(message.channel.id != '834374327620468746') return;
  
-    if(message.content){
         cleverbot(message.content).then(response => message.channel.send(response));
-    } 
 });
 
-const http = require('http');
-const server = http.createServer((req, res) => {
-  res.writeHead(200);
-  res.end('ok');
-});
-
-server.listen(3000);
- 
 client.login(process.env.token);
