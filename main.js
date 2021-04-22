@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const cleverbot = require("./cleverbot-free-master/index.js");
+const cleverbot = require("cleverbot-free");
 
 client.once('ready', () => {
     console.log('Bot is online!');
