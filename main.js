@@ -9,7 +9,7 @@ client.once('ready', () => {
 client.on('message', message =>{
     if(message.author.bot) return;
 
-    if(message.channel.id != '834374327620468746') return;
+    if(message.channel.id != '834374327620468746' || message.channel.id != '826567367001243708') return;
  
         cleverbot(message.content).then(response => message.channel.send(response));
 });
