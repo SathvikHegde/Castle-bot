@@ -70,7 +70,7 @@ client.on('message', async message =>{
                 if (member === "User Left") {
                   embed.addField(`${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
                 } else {
-                  embed.addField(`${i + 1}. ${member.user.username}`, `**Messages**: ${res[i].messages}`);
+                  embed.addField(`${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
                 }
               }
             }else{
@@ -80,7 +80,7 @@ client.on('message', async message =>{
                 if (member === "User Left") {
                   embed.addField(`${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
                 } else {
-                  embed.addField(`${i + 1}. ${member.user.username}`, `**Messages**: ${res[i].messages}`);
+                  embed.addField(`${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
                 }
               }
             }
