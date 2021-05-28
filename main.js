@@ -106,8 +106,8 @@ client.on('message', async message =>{
             }
             embed.setTimestamp();
 
-            client.channels.cache.get("818069197598359602").send(embed);
-            client.channels.cache.get("818069197598359602").send('https://static.wikia.nocookie.net/webtoon/images/b/bf/Blades_of_Furry_Banner_3.gif');
+            client.channels.cache.get("835225151787892766").send(embed);
+            client.channels.cache.get("835225151787892766").send('https://static.wikia.nocookie.net/webtoon/images/b/bf/Blades_of_Furry_Banner_3.gif');
         
           })
     }
