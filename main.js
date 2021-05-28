@@ -66,28 +66,48 @@ client.on('message', async message =>{
             }else if(res.length < 10){
               embed.setColor("BLURPLE");
               for (i = 0; i < res.length; i++) {
-                let member = message.guild.members.fetch(res[i].userID) || "User Left";
-                if (member === "User Left") {
-                  embed.addField(`${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
-                } else {
-                  embed.addField(`${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
+                if(i + 1 < 3){
+                  let member = message.guild.members.fetch(res[i].userID) || "User Left";
+                  if (member === "User Left") {
+                    embed.addField(`:star2: ${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
+                  } else {
+                    embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
+                  }
+                }else{
+                  let member = message.guild.members.fetch(res[i].userID) || "User Left";
+                  if (member === "User Left") {
+                    embed.addField(`:star: ${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
+                  } else {
+                    embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
+                  }
                 }
+                
               }
             }else{
               embed.setColor("BLURPLE");
               for (i = 0; i < 10; i++) {
-                let member = message.guild.members.fetch(res[i].userID) || "User Left";
-                if (member === "User Left") {
-                  embed.addField(`${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
-                } else {
-                  embed.addField(`${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
+                if(i + 1 < 3){
+                  let member = message.guild.members.fetch(res[i].userID) || "User Left";
+                  if (member === "User Left") {
+                    embed.addField(`:star2: ${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
+                  } else {
+                    embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
+                  }
+                }else{
+                  let member = message.guild.members.fetch(res[i].userID) || "User Left";
+                  if (member === "User Left") {
+                    embed.addField(`:star: ${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
+                  } else {
+                    embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
+                  }
                 }
+                
               }
             }
-            embed.setThumbnail('https://static.wikia.nocookie.net/webtoon/images/8/83/Blades_of_Furry_Banner.png/revision/latest/scale-to-width-down/250?cb=20210221170221');
             embed.setTimestamp();
         
             message.channel.send(embed);
+            message.channel.send('https://static.wikia.nocookie.net/webtoon/images/b/bf/Blades_of_Furry_Banner_3.gif');
         
           })
     }
