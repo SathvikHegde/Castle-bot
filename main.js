@@ -113,7 +113,7 @@ client.on('message', async message =>{
     }
 
     if(message.channel.id == '799987917065682964' && message.content == '-resetlevels'){
-      ProductModel.deleteMany({ serverID: '799971756772818964' }, function (err) {
+      level.deleteMany({ serverID: '799971756772818964' }, function (err) {
         if(err) console.log(err);
         console.log("Successful deletion");
         message.reply('Sucessfully rested the database.');
