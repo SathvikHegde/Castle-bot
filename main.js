@@ -66,7 +66,7 @@ client.on('message', async message =>{
             }else if(res.length < 10){
               embed.setColor("BLURPLE");
               for (i = 0; i < res.length; i++) {
-                if(i + 1 < 3){
+                if(i < 3){
                   let member = message.guild.members.fetch(res[i].userID) || "User Left";
                   if (member === "User Left") {
                     embed.addField(`:star2: ${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
@@ -86,7 +86,7 @@ client.on('message', async message =>{
             }else{
               embed.setColor("BLURPLE");
               for (i = 0; i < 10; i++) {
-                if(i + 1 < 3){
+                if(i < 3){
                   let member = message.guild.members.fetch(res[i].userID) || "User Left";
                   if (member === "User Left") {
                     embed.addField(`:star2: ${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
