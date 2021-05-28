@@ -84,8 +84,8 @@ client.on('message', async message =>{
                 }
               }
             }
-            embed.addThumbnail('https://static.wikia.nocookie.net/webtoon/images/8/83/Blades_of_Furry_Banner.png/revision/latest/scale-to-width-down/250?cb=20210221170221');
-            embed.addTimestamp();
+            embed.setThumbnail('https://static.wikia.nocookie.net/webtoon/images/8/83/Blades_of_Furry_Banner.png/revision/latest/scale-to-width-down/250?cb=20210221170221');
+            embed.setTimestamp();
         
             message.channel.send(embed);
         
