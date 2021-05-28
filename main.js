@@ -105,12 +105,20 @@ client.on('message', async message =>{
               }
             }
             embed.setTimestamp();
-        
-            message.channel.send(embed);
-            message.channel.send('https://static.wikia.nocookie.net/webtoon/images/b/bf/Blades_of_Furry_Banner_3.gif');
+
+            client.channels.get("818069197598359602").send(embed);
+            client.channels.get("818069197598359602").send('https://static.wikia.nocookie.net/webtoon/images/b/bf/Blades_of_Furry_Banner_3.gif');
         
           })
     }
+
+    if(message.channel.id == '799987917065682964' && message.content == '-resetlevels'){
+      ProductModel.deleteMany({ serverID: '799971756772818964' }, function (err) {
+        if(err) console.log(err);
+        console.log("Successful deletion");
+        message.reply('Sucessfully rested the database.');
+      });
+    }  
  
     
 
