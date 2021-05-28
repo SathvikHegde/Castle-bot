@@ -66,7 +66,7 @@ client.on('message', async message =>{
             }else if(res.length < 10){
               embed.setColor("BLURPLE");
               for (i = 0; i < res.length; i++) {
-                let member = message.guild.members.get(res[i].userID) || "User Left";
+                let member = message.guild.members.fetch(res[i].userID) || "User Left";
                 if (member === "User Left") {
                   embed.addField(`${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
                 } else {
@@ -76,7 +76,7 @@ client.on('message', async message =>{
             }else{
               embed.setColor("BLURPLE");
               for (i = 0; i < 10; i++) {
-                let member = message.guild.members.get(res[i].userID) || "User Left";
+                let member = message.guild.members.fetch(res[i].userID) || "User Left";
                 if (member === "User Left") {
                   embed.addField(`${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
                 } else {
