@@ -131,23 +131,23 @@ client.on('message', async message =>{
       let gif;
       
       if(randomselect == 1){
-        gif = 'https://tenor.com/view/head-hit-anime-cute-gif-15150394';
+        gif = 'https://media1.tenor.com/images/347f852d3dfa48502406fa949fcc1449/tenor.gif?itemid=15150394';
       }else if(randomselect == 2){
-        gif = 'https://tenor.com/view/anime-bonk-anime-bonk-smack-anime-smack-gif-20294899';
+        gif = 'https://media1.tenor.com/images/c6571c335cd8e56de03ae05f81790efa/tenor.gif?itemid=20294899';
       }else if(randomselect == 3){
-        gif = 'https://tenor.com/view/chuunibyou-anime-bully-bonk-kumin-gif-20952854';
+        gif = 'https://media1.tenor.com/images/79e0ed5c2ed5397fa79f48fccd6265d1/tenor.gif?itemid=20952854';
       }else if(randomselect == 4){
-        gif = 'https://tenor.com/view/anime-hit-bonk-rikka-gif-18191826';
+        gif = 'https://media1.tenor.com/images/dc4329d27745a6707219cb658f5b2c46/tenor.gif?itemid=18191826';
       }else if(randomselect == 5){
-        gif = 'https://tenor.com/view/touka-kirishima-tokyo-ghoul-anime-gif-17402810';
+        gif = 'https://media1.tenor.com/images/119ca32322ba24e4ffc4f0d84a6839f1/tenor.gif?itemid=17402810';
       }else if(randomselect == 6){
-        gif = 'https://tenor.com/view/no-chiochannotsuugakuro-hit-bonk-tsuugakuro-gif-20920340';
+        gif = 'https://media1.tenor.com/images/8cd54ee389b04a2366e85332125c5475/tenor.gif?itemid=20920340';
       }else if(randomselect == 7){
-        gif = 'https://tenor.com/view/chuunibyou-hit-bonk-chop-stopit-gif-8229175';
+        gif = 'https://media1.tenor.com/images/cf9f90ce4ccca4fe6d82bb445ca4759e/tenor.gif?itemid=8229175';
       }
 
       const embed = new Discord.MessageEmbed()
-      .setTitle(`<@${bonker.id}> bonked <@${target.id}>`)
+      .setDescription(`<@${bonker.id}> bonked <@${target.id}>`)
       .setImage(gif);
 
       message.channel.send(embed);
