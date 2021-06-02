@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const level = require("./models/level.js");
 let precommand;
 let preresponse;
+const prefix = '-';
 
 mongoose.connect(process.env.mongodb, {
   useNewUrlParser: true,
@@ -17,6 +18,9 @@ client.once('ready', () => {
 
 client.on('message', async message =>{
     if(message.author.bot) return;
+
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
 
     level.findOne({
         userID: message.author.id,
@@ -119,6 +123,35 @@ client.on('message', async message =>{
         message.reply('Sucessfully rested the database.');
       });
     }  
+
+    if(command == 'bonk'){
+      let bonker = message.author;
+      let target = message.mentions.users.first() || message.author;
+      let randomselect = Math.floor((Math.random() * 7) + 1);
+      let gif;
+      
+      if(randomselect == 1){
+        gif = 'https://tenor.com/view/head-hit-anime-cute-gif-15150394';
+      }else if(randomselect == 2){
+        gif = 'https://tenor.com/view/anime-bonk-anime-bonk-smack-anime-smack-gif-20294899';
+      }else if(randomselect == 3){
+        gif = 'https://tenor.com/view/chuunibyou-anime-bully-bonk-kumin-gif-20952854';
+      }else if(randomselect == 4){
+        gif = 'https://tenor.com/view/anime-hit-bonk-rikka-gif-18191826';
+      }else if(randomselect == 5){
+        gif = 'https://tenor.com/view/touka-kirishima-tokyo-ghoul-anime-gif-17402810';
+      }else if(randomselect == 6){
+        gif = 'https://tenor.com/view/no-chiochannotsuugakuro-hit-bonk-tsuugakuro-gif-20920340';
+      }else if(randomselect == 7){
+        gif = 'https://tenor.com/view/chuunibyou-hit-bonk-chop-stopit-gif-8229175';
+      }
+
+      const embed = Discord.MessageEmbed()
+      .setTitle(`<@${bonker.id}> bonked <@${target.id}>`)
+      .setImage(gif);
+
+      message.channel.send(embed);
+    }
  
     
 
