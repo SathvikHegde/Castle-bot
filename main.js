@@ -146,7 +146,7 @@ client.on('message', async message =>{
         gif = 'https://tenor.com/view/chuunibyou-hit-bonk-chop-stopit-gif-8229175';
       }
 
-      const embed = Discord.MessageEmbed()
+      const embed = new Discord.MessageEmbed()
       .setTitle(`<@${bonker.id}> bonked <@${target.id}>`)
       .setImage(gif);
 
