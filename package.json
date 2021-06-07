@@ -13,7 +13,7 @@
     "discord.js": "^12.5.3",
     "dotenv": "^9.0.2",
     "md5": "^2.2.1",
-    "mongoose": "^5.12.11",
+    "mongoose": "^5.12.13",
     "superagent": "^6.1.0"
   }
 }
