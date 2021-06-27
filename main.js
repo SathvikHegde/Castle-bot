@@ -25,6 +25,7 @@ client.on('message', async message =>{
 
     if(message.channel.id != '799979133693067315' && message.channel.id != '821781384934457384'){
       let points;
+      if(message.content.length < 50) points = 1;
       if(message.content.length > 50) points = 2;
       if(message.content.length > 100) points = 5;
       if(message.content.length > 200) points = 10;
