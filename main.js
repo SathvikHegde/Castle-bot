@@ -18,11 +18,18 @@ client.once('ready', () => {
 
 client.on('message', async message =>{
     if(message.author.bot) return;
+    if(message.channel.type == 'dm') return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
-    level.findOne({
+    if(message.channel.id != '799979133693067315' && message.channel.id != '821781384934457384'){
+      let points;
+      if(message.content.length > 50) points = 2;
+      if(message.content.length > 100) points = 5;
+      if(message.content.length > 200) points = 10;
+      if(message.content.length > 500) points = 20;
+      level.findOne({
         userID: message.author.id,
         userName: message.author.username
       }, (err, res) => {
@@ -33,15 +40,16 @@ client.on('message', async message =>{
             userID: message.author.id,
             userName: message.author.username,
             serverID: message.guild.id,
-            messages: 0
+            points: 0
           })
           newDoc.save().catch(err => console.log(err));
         }else{
-          res.messages = res.messages + 1;
+          res.points = res.points + points;
           res.save().catch(err => console.log(err))
         }
       });
-    
+    }
+
     if(message.channel.id == '834374327620468746' || message.channel.id == '826567367001243708') {
         cleverbot(message.content, [precommand, preresponse]).then(response => {
             message.channel.send(response);
@@ -61,7 +69,7 @@ client.on('message', async message =>{
         level.find({
             serverID: message.guild.id
           }).sort([
-            ["messages", "descending"]
+            ["points", "descending"]
           ]).exec((err, res) => {
             if(err) console.log(err);
         
@@ -73,16 +81,16 @@ client.on('message', async message =>{
                 if(i < 3){
                   let member = message.guild.members.fetch(res[i].userID) || "User Left";
                   if (member === "User Left") {
-                    embed.addField(`:star2: ${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
+                    embed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
                   } else {
-                    embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
+                    embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
                   }
                 }else{
                   let member = message.guild.members.fetch(res[i].userID) || "User Left";
                   if (member === "User Left") {
-                    embed.addField(`:star: ${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
+                    embed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
                   } else {
-                    embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
+                    embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
                   }
                 }
                 
@@ -93,16 +101,16 @@ client.on('message', async message =>{
                 if(i < 3){
                   let member = message.guild.members.fetch(res[i].userID) || "User Left";
                   if (member === "User Left") {
-                    embed.addField(`:star2: ${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
+                    embed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
                   } else {
-                    embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
+                    embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
                   }
                 }else{
                   let member = message.guild.members.fetch(res[i].userID) || "User Left";
                   if (member === "User Left") {
-                    embed.addField(`:star: ${i + 1}. ${member}`, `**Messages**: ${res[i].messages}`);
+                    embed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
                   } else {
-                    embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Messages**: ${res[i].messages}`);
+                    embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
                   }
                 }
                 
