@@ -114,7 +114,7 @@ client.on('message', async message =>{
       message.channel.send(embed);
     }
 
-    if(command == 'level' || command == 'lvl') {
+    if(command == 'level' || command == 'lvl' || command == 'points' || command == 'pts' || command == 'point') {
       let target = message.mentions.users.first() || message.author;
       level.findOne({
         userID: target.id,
@@ -125,69 +125,68 @@ client.on('message', async message =>{
         }else{
           const embed = new Discord.MessageEmbed()
           .setDescription(`**${target.username}'s** has ${res.points} points.`)
+          .setColor('BLURPLE')
           message.channel.send(embed);
         }
       })
     }
  
     
-
+    function calcleaderboard() {
+      let embed = new Discord.MessageEmbed()
+            level.find({
+                serverID: message.guild.id
+              }).sort([
+                ["points", "descending"]
+              ]).exec((err, res) => {
+                if(err) console.log(err);
+            
+                if(!res){
+                  message.channel.send('This isnt supposed to happen. Fix your code PEEPEE!!')
+                }else if(res.length < 10){
+                  embed.setColor("BLURPLE");
+                  for (i = 0; i < res.length; i++) {
+                    if(i < 3){
+                      let member = message.guild.members.fetch(res[i].userID) || "User Left";
+                      if (member === "User Left") {
+                        embed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+                      } else {
+                        embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+                      }
+                    }else{
+                      let member = message.guild.members.fetch(res[i].userID) || "User Left";
+                      if (member === "User Left") {
+                        embed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+                      } else {
+                        embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+                      }
+                    }
+                    
+                  }
+                }else{
+                  embed.setColor("BLURPLE");
+                  for (i = 0; i < 10; i++) {
+                    if(i < 3){
+                      let member = message.guild.members.fetch(res[i].userID) || "User Left";
+                      if (member === "User Left") {
+                        embed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+                      } else {
+                        embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+                      }
+                    }else{
+                      let member = message.guild.members.fetch(res[i].userID) || "User Left";
+                      if (member === "User Left") {
+                        embed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+                      } else {
+                        embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+                      }
+                    }
+                    
+                  }
+                }
+                embed.setTimestamp();
+              })
+    }
 });
 
 client.login(process.env.token);
-
-function calcleaderboard() {
-  let embed = new Discord.MessageEmbed()
-        level.find({
-            serverID: message.guild.id
-          }).sort([
-            ["points", "descending"]
-          ]).exec((err, res) => {
-            if(err) console.log(err);
-        
-            if(!res){
-              message.channel.send('This isnt supposed to happen. Fix your code PEEPEE!!')
-            }else if(res.length < 10){
-              embed.setColor("BLURPLE");
-              for (i = 0; i < res.length; i++) {
-                if(i < 3){
-                  let member = message.guild.members.fetch(res[i].userID) || "User Left";
-                  if (member === "User Left") {
-                    embed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
-                  } else {
-                    embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
-                  }
-                }else{
-                  let member = message.guild.members.fetch(res[i].userID) || "User Left";
-                  if (member === "User Left") {
-                    embed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
-                  } else {
-                    embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
-                  }
-                }
-                
-              }
-            }else{
-              embed.setColor("BLURPLE");
-              for (i = 0; i < 10; i++) {
-                if(i < 3){
-                  let member = message.guild.members.fetch(res[i].userID) || "User Left";
-                  if (member === "User Left") {
-                    embed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
-                  } else {
-                    embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
-                  }
-                }else{
-                  let member = message.guild.members.fetch(res[i].userID) || "User Left";
-                  if (member === "User Left") {
-                    embed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
-                  } else {
-                    embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
-                  }
-                }
-                
-              }
-            }
-            embed.setTimestamp();
-          })
-}
