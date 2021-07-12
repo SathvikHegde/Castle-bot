@@ -23,6 +23,8 @@ client.on('message', async message =>{
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
+    let lbembed = new Discord.MessageEmbed()
+
     if(message.channel.id != '799979133693067315' && message.channel.id != '821781384934457384'){
       let points;
       if(message.content.length <= 50) points = 1;
@@ -65,10 +67,9 @@ client.on('message', async message =>{
     }
 
     if(message.channel.id == '799987917065682964' && message.content == '-weeklything'){
-      let embed = new Discord.MessageEmbed()
-      calcleaderboard(embed);
-      embed.setTitle("**Weekly Leaderboard**");
-      client.channels.cache.get("835225151787892766").send(embed);
+      calcleaderboard();
+      lbembed.setTitle("**Weekly Leaderboard**");
+      client.channels.cache.get("835225151787892766").send(lbembed);
       client.channels.cache.get("835225151787892766").send('https://static.wikia.nocookie.net/webtoon/images/b/bf/Blades_of_Furry_Banner_3.gif');
     }
 
@@ -110,10 +111,9 @@ client.on('message', async message =>{
     }
 
     if(command == 'leaderboard' || command == 'lb') {
-      let embed = new Discord.MessageEmbed()
-      calcleaderboard(embed);
-      embed.setTitle("**Current Weekly Leaderboard**");
-      message.channel.send(embed);
+      calcleaderboard();
+      lbembed.setTitle("**Current Weekly Leaderboard**");
+      message.channel.send(lbembed);
     }
 
     if(command == 'level' || command == 'lvl' || command == 'points' || command == 'pts' || command == 'point') {
@@ -134,7 +134,7 @@ client.on('message', async message =>{
     }
  
     
-    function calcleaderboard(embed) {
+    function calcleaderboard() {
             level.find({
                 serverID: message.guild.id
               }).sort([
@@ -145,47 +145,47 @@ client.on('message', async message =>{
                 if(!res){
                   message.channel.send('This isnt supposed to happen. Fix your code PEEPEE!!')
                 }else if(res.length < 10){
-                  embed.setColor("BLURPLE");
+                  lbembed.setColor("BLURPLE");
                   for (i = 0; i < res.length; i++) {
                     if(i < 3){
                       let member = message.guild.members.fetch(res[i].userID) || "User Left";
                       if (member === "User Left") {
-                        embed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+                        lbembed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
                       } else {
-                        embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+                        lbembed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
                       }
                     }else{
                       let member = message.guild.members.fetch(res[i].userID) || "User Left";
                       if (member === "User Left") {
-                        embed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+                        lbembed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
                       } else {
-                        embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+                        lbembed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
                       }
                     }
                     
                   }
                 }else{
-                  embed.setColor("BLURPLE");
+                  lbembed.setColor("BLURPLE");
                   for (i = 0; i < 10; i++) {
                     if(i < 3){
                       let member = message.guild.members.fetch(res[i].userID) || "User Left";
                       if (member === "User Left") {
-                        embed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+                        lbembed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
                       } else {
-                        embed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+                        lbembed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
                       }
                     }else{
                       let member = message.guild.members.fetch(res[i].userID) || "User Left";
                       if (member === "User Left") {
-                        embed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+                        lbembed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
                       } else {
-                        embed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+                        lbembed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
                       }
                     }
                     
                   }
                 }
-                embed.setTimestamp();
+                lbembed.setTimestamp();
               })
     }
 });
