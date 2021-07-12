@@ -65,6 +65,7 @@ client.on('message', async message =>{
     }
 
     if(message.channel.id == '799987917065682964' && message.content == '-weeklything'){
+      let embed = new Discord.MessageEmbed()
       calcleaderboard();
       embed.setTitle("**Weekly Leaderboard**");
       client.channels.cache.get("835225151787892766").send(embed);
@@ -109,6 +110,7 @@ client.on('message', async message =>{
     }
 
     if(command == 'leaderboard' || command == 'lb') {
+      let embed = new Discord.MessageEmbed()
       calcleaderboard();
       embed.setTitle("**Current Weekly Leaderboard**");
       message.channel.send(embed);
@@ -133,7 +135,6 @@ client.on('message', async message =>{
  
     
     function calcleaderboard() {
-      let embed = new Discord.MessageEmbed()
             level.find({
                 serverID: message.guild.id
               }).sort([
