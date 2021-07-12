@@ -66,7 +66,7 @@ client.on('message', async message =>{
 
     if(message.channel.id == '799987917065682964' && message.content == '-weeklything'){
       let embed = new Discord.MessageEmbed()
-      calcleaderboard();
+      calcleaderboard(embed);
       embed.setTitle("**Weekly Leaderboard**");
       client.channels.cache.get("835225151787892766").send(embed);
       client.channels.cache.get("835225151787892766").send('https://static.wikia.nocookie.net/webtoon/images/b/bf/Blades_of_Furry_Banner_3.gif');
@@ -111,7 +111,7 @@ client.on('message', async message =>{
 
     if(command == 'leaderboard' || command == 'lb') {
       let embed = new Discord.MessageEmbed()
-      calcleaderboard();
+      calcleaderboard(embed);
       embed.setTitle("**Current Weekly Leaderboard**");
       message.channel.send(embed);
     }
