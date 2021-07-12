@@ -134,7 +134,7 @@ client.on('message', async message =>{
     }
  
     
-    function calcleaderboard() {
+    function calcleaderboard(embed) {
             level.find({
                 serverID: message.guild.id
               }).sort([
