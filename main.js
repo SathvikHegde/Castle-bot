@@ -112,7 +112,6 @@ client.on('message', async message =>{
 
     if(command == 'leaderboard' || command == 'lb') {
       calcleaderboard();
-      lbembed.setTitle("**Current Weekly Leaderboard**");
       message.channel.send(lbembed);
     }
 
@@ -187,6 +186,7 @@ client.on('message', async message =>{
                 }
                 lbembed.setTimestamp();
               })
+              return lbembed;
     }
 });
 
