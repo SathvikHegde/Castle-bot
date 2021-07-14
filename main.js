@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+require('dotenv').config();
 const cleverbot = require("cleverbot-free");
 const mongoose = require('mongoose');
 const level = require("./models/level.js");
@@ -22,8 +23,6 @@ client.on('message', async message =>{
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-
-    let lbembed = new Discord.MessageEmbed()
 
     if(message.channel.id != '799979133693067315' && message.channel.id != '821781384934457384'){
       let points;
@@ -67,7 +66,7 @@ client.on('message', async message =>{
     }
 
     if(message.channel.id == '799987917065682964' && message.content == '-weeklything'){
-      calcleaderboard();
+      calcleaderboard(lbembed);
       lbembed.setTitle("**Weekly Leaderboard**");
       client.channels.cache.get("835225151787892766").send(lbembed);
       client.channels.cache.get("835225151787892766").send('https://static.wikia.nocookie.net/webtoon/images/b/bf/Blades_of_Furry_Banner_3.gif');
@@ -111,8 +110,12 @@ client.on('message', async message =>{
     }
 
     if(command == 'leaderboard' || command == 'lb') {
-      calcleaderboard();
-      message.channel.send(lbembed);
+      message.channel.send('Loading...')
+      let lbembed = new Discord.MessageEmbed()
+      .setTitle("**Current Weekly Leaderboard**")
+      .setFooter(`Requested by ${message.author.username}`)
+      calcleaderboard(lbembed);
+      message.edit(lbembed);
     }
 
     if(command == 'level' || command == 'lvl' || command == 'points' || command == 'pts' || command == 'point') {
@@ -131,63 +134,67 @@ client.on('message', async message =>{
         }
       })
     }
- 
-    
-    function calcleaderboard() {
-            level.find({
-                serverID: message.guild.id
-              }).sort([
-                ["points", "descending"]
-              ]).exec((err, res) => {
-                if(err) console.log(err);
+
+    function calcleaderboard(lbembed) {
+      level.find({
+        serverID: message.guild.id
+      }).sort([
+        ["points", "descending"]
+      ]).exec((err, res) => {
+        if(err) console.log(err);
             
-                if(!res){
-                  message.channel.send('This isnt supposed to happen. Fix your code PEEPEE!!')
-                }else if(res.length < 10){
-                  lbembed.setColor("BLURPLE");
-                  for (i = 0; i < res.length; i++) {
-                    if(i < 3){
-                      let member = message.guild.members.fetch(res[i].userID) || "User Left";
-                      if (member === "User Left") {
-                        lbembed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
-                      } else {
-                        lbembed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
-                      }
-                    }else{
-                      let member = message.guild.members.fetch(res[i].userID) || "User Left";
-                      if (member === "User Left") {
-                        lbembed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
-                      } else {
-                        lbembed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
-                      }
-                    }
-                    
-                  }
-                }else{
-                  lbembed.setColor("BLURPLE");
-                  for (i = 0; i < 10; i++) {
-                    if(i < 3){
-                      let member = message.guild.members.fetch(res[i].userID) || "User Left";
-                      if (member === "User Left") {
-                        lbembed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
-                      } else {
-                        lbembed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
-                      }
-                    }else{
-                      let member = message.guild.members.fetch(res[i].userID) || "User Left";
-                      if (member === "User Left") {
-                        lbembed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
-                      } else {
-                        lbembed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
-                      }
-                    }
-                    
-                  }
-                }
-                lbembed.setTimestamp();
-              })
-              return lbembed;
+        if(!res){
+          message.channel.send('This isnt supposed to happen. Fix your code PEEPEE!!')
+        }else if(res.length < 10){
+          lbembed.setColor("BLURPLE");
+          for (i = 0; i < res.length; i++) {
+            if(i < 3){
+              let member = message.guild.members.fetch(res[i].userID) || "User Left";
+              if (member === "User Left") {
+                lbembed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+              } else {
+                lbembed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+              }
+            }else{
+              let member = message.guild.members.fetch(res[i].userID) || "User Left";
+              if (member === "User Left") {
+               lbembed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+              } else {
+                lbembed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+              }
+            }       
+          }
+        }else{
+          lbembed.setColor("BLURPLE");
+          for (i = 0; i < 10; i++) {
+            if(i < 3){
+              let member = message.guild.members.fetch(res[i].userID) || "User Left";
+              if (member === "User Left") {
+                lbembed.addField(`:star2: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+              } else {
+                lbembed.addField(`:star2: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+              }
+            }else{
+              let member = message.guild.members.fetch(res[i].userID) || "User Left";
+              if (member === "User Left") {
+                lbembed.addField(`:star: ${i + 1}. ${member}`, `**Points**: ${res[i].points}`);
+              } else {
+                lbembed.addField(`:star: ${i + 1}. ${res[i].userName}`, `**Points**: ${res[i].points}`);
+              }
+            }  
+          }
+        }
+        lbembed.setTimestamp();
+      })
+      return lbembed;
     }
 });
 
 client.login(process.env.token);
+
+const http = require('http');
+const server = http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end('ok');
+});
+server.listen(20406);
