@@ -1,5 +1,5 @@
 {
-  "name": "chatbotbareminimum",
+  "name": "castle-bot",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -9,11 +9,9 @@
   "author": "SathvikHegde",
   "license": "ISC",
   "dependencies": {
-    "cleverbot-free": "1.1.6",
+    "cleverbot-free": "^1.1.6",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
-    "md5": "^2.2.1",
-    "mongoose": "^5.13.2",
-    "superagent": "^6.1.0"
+    "mongoose": "^5.13.2"
   }
 }
