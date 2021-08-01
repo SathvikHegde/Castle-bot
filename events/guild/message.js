@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const level = require("../../models/level.js");
+const emoji = require("../../models/emoji.js");
 const cleverbot = require('cleverbot-free');
 let precommand;
 let preresponse;
@@ -8,6 +9,36 @@ module.exports = (Discord, client, message) => {
     const prefix = '-';
 
     if(message.author.bot || message.channel.type == 'dm') return;
+
+    message.guild.emojis.cache.forEach(emojiobj => {
+      if(message.content.includes(emojiobj.name)){
+        emoji.findOne({
+          emojiname: emojiobj.name
+        }, (err, res) => {
+          if(err) console.log(err);
+
+          if(!res){
+            let emojidisplaystring;
+            if(emojiobj.animated) {
+              emojidisplaystring = `<a:${emojiobj.name}:${emojiobj.id}>`
+            }else {
+              emojidisplaystring = `<:${emojiobj.name}:${emojiobj.id}>`
+            }
+            const emojiDoc = new emoji({
+              emojiname: emojiobj.name,
+              serverID: message.guild.id,
+              emojiID: emojiobj.id,
+              displaystring: emojidisplaystring,
+              usage: 0
+            });
+            emojiDoc.save().catch(err => console.log(err));
+          }else{
+            res.usage = res.usage + 1;
+            res.save().catch(err => console.log(err));
+          }
+        });
+      }
+    });
 
     if(message.channel.id != '799979133693067315' && message.channel.id != '821781384934457384'){
         let points;
