@@ -12,6 +12,8 @@ const applyText = (canvas, text) => {
 };
 
 module.exports = async (Discord, client, member) =>{
+    if(member.guild.id != '799971756772818964') return;
+
     const canvas = Canvas.createCanvas(700, 250);
 	    const context = canvas.getContext('2d');
 
