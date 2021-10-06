@@ -36,7 +36,7 @@ module.exports = async (Discord, client, member) =>{
         context.closePath();
         context.clip();
 
-        const avatar = await Canvas.loadImage('https://cdn.discordapp.com/icons/799971756772818964/a_367c68c46121c6f6d181d55c55631433.jpg');
+        const avatar = await Canvas.loadImage('https://cdn.discordapp.com/icons/799971756772818964/81ceef90895bbbf4ba05aefe8253ebdd.jpg');
         context.drawImage(avatar, 25, 25, 200, 200);
 
         const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'welcomeimage.png');
